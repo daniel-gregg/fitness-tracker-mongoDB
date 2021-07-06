@@ -17,16 +17,15 @@ router.put("/workouts/:id", async(req,res) => {
   try {
     console.log(req.params.id)
     console.log(req.body)
-    const workout = await findOneAndUpdate(req.params.id, {
-      $push: {exercises: req.body},
-    },
-    //{new:true, runValidators: true}
-    );
+    const workout = await Workout.findOneAndUpdate(req.params.id, 
+      {$push: {"exercises": req.body}},
+      {new:true}
+      );
     res.json(workout)
-
     } catch(err) {
-    res.status(400).json(err)
-  }
+      console.log(err)
+      res.status(400).json(err)
+    }
 });
 
 router.post("/workouts", async(req,res) => {
