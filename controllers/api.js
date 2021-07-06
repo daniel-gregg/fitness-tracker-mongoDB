@@ -15,45 +15,28 @@ router.get("/workouts", async (req, res) => {
 
 router.put("/workouts/:id", async(req,res) => {
   try {
-     const workout = await findOneAndUpdate(req.params.id, {
-       $push: {exercises: req.body},
-     },
-     {new:true, runValidators: true}
-     );
+    console.log(req.params.id)
+    console.log(req.body)
+    const workout = await findOneAndUpdate(req.params.id, {
+      $push: {exercises: req.body},
+    },
+    //{new:true, runValidators: true}
+    );
+    res.json(workout)
 
-     } catch(err) {
+    } catch(err) {
     res.status(400).json(err)
   }
 });
 
 router.post("/workouts", async(req,res) => {
   try{
-    XX
+    const workout = await new Workout({});
+    const newWorkout = await workout.save({});
+    res.json(newWorkout);
   } catch(err) {
     res.status(400).json(err)
   }
 })
-/* router.post("/transaction", ({ body }, res) => {
-  Transaction.create(body)
-    .then(dbTransaction => {
-      res.json(dbTransaction);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
-});
-
-router.post("/api/transaction/bulk", ({ body }, res) => {
-  Transaction.insertMany(body)
-    .then(dbTransaction => {
-      res.json(dbTransaction);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
-});
-
- */
-
 
 module.exports = router;

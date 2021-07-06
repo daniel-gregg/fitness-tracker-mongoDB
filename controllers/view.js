@@ -1,54 +1,13 @@
 const router = require("express").Router();
 const Workout = require("../models/workout.js");
+const path = require("path");
 
-router.get("/exercise/:id", async (req, res) => {
-  try {
-    const workout = await Workout.findById(req.params.id);
-    console.log(workout)
-    res.sendFile(workout);
-
-  } catch(err) {
-    res.status(400).json(err);
-  }
-});
-
-/* 
 router.get("/exercise", async (req, res) => {
-  try {
-    const workout = await Workout.find({}).sort({day: -1})
-    res.sendFile(workout);
-  } catch(err) {
-    res.status(400).json(err);
-  }
-});
- */
-/* 
-router.get("/workouts", async (req, res) => {
-  try {
-    const workouts = await Workout.find({}).sort({day: -1})
-    res.json(workouts);
-  } catch(err) {
-    res.status(400).json(err);
-  }
+    res.sendFile(path.join(__dirname,"../public/exercise.html"))
 });
 
-router.get('/workouts/range', async(req,res) =>{
-  XX
+router.get("/stats", async (req,res) => {
+  res.sendFile(path.join(__dirname,"../public/stats.html"))
 })
-
-router.post("/workouts", async(req,res) => {
-  try {
-    const workout = await new Workout();
-    await workout.save()
-    res.sendFile(workout)
-  } catch(err) {
-    res.status(400).json(err)
-  }
-});
- */
-/* router.put('/workouts/:id', async, (req,res) => {
-
-})
- */
 
 module.exports = router;
