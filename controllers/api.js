@@ -38,4 +38,18 @@ router.post("/workouts", async(req,res) => {
   }
 })
 
+
+//Get last workout route
+router.get(`/workouts/range`, async (req, res) => {
+  try {
+    const workouts = await Workout.find({}).sort({day: -1})
+    res.json(workouts);
+
+  } catch(err) {
+    res.status(400).json(err);
+  }
+});
+
+
+
 module.exports = router;
