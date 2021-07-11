@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const db = require('../models');
 
-mongoose.connect('mongodb://localhost/workout', {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
-});
+mongoose.connect(  //This doesn't work to connect to online db if present... need to delete the OR and put the string directly...
+  process.env.MONGODB_URI || 'mongodb://localhost/workout', 
+  {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+  });
 
 const workoutSeed = [
   {

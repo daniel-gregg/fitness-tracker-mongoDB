@@ -42,7 +42,21 @@ router.post("/workouts", async(req,res) => {
 //Get last workout route
 router.get(`/workouts/range`, async (req, res) => {
   try {
-    const workouts = await Workout.find({}).sort({day: -1})
+    let workouts = await Workout.aggregate([
+      { "$addFields": { 
+        "totalDuration" : {
+          "$reduce": {
+                "input": "$exercises",
+                "initialValue": 0,
+                "in" : {"$add" : ["$$value", "$$this.duration"] }
+              }
+            }
+          }
+        }
+    ])
+
+    console.log(workouts)
+    
     res.json(workouts);
 
   } catch(err) {
